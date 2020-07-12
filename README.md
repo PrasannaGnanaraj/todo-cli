@@ -10,6 +10,10 @@ a simple CLI tool to maintain a todo.txt file
 
 ## Usage
 
+### Set TODO_LOCATION
+
+$ export TODO_LOCATION="desired_file_path/todo.txt"
+
 ### To add a todo
 
 $ todo a "new task"
