@@ -2,33 +2,33 @@
   (:gen-class))
 (use 'clojure.pprint)
 
-(def fileLocation (System/getenv "TODO_LOCATION"))
+(def file-location (System/getenv "TODO_LOCATION"))
 
-(defn addContent
+(defn add-content
   "appends content to todo file"
-  [fileLocation textContent]
-  (with-open [file (clojure.java.io/writer fileLocation :append true)]
-    (.write file (str (first textContent) "\n"))))
+  [file-location text-content]
+  (with-open [file (clojure.java.io/writer file-location :append true)]
+    (.write file (str (first text-content) "\n"))))
 
-(defn textArrayToTable
+(defn textarray-to-table
   "Converts text array to object format for pretty printing"
-  [contentArray]
-  (reduce #(conj %1 {:todos %2}) [] contentArray))
+  [content-array]
+  (reduce #(conj %1 {:todos %2}) [] content-array))
 
-(defn readContent
+(defn read-content
   "reads content from todo file"
-  [fileLocation]
-  (with-open [file (clojure.java.io/reader fileLocation)]
-    (print-table (textArrayToTable (line-seq file)))))
+  [file-location]
+  (with-open [file (clojure.java.io/reader file-location)]
+    (print-table (textarray-to-table (line-seq file)))))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (if (nil? fileLocation)
+  (if (nil? file-location)
     (throw (AssertionError. "empty $TODO_LOCATION")))
   (case (first args)
     "a" (do
-          (addContent fileLocation (rest args))
-          (readContent fileLocation))
-    "ls" (readContent fileLocation)
+          (add-content file-location (rest args))
+          (read-content file-location))
+    "ls" (read-content file-location)
     (println "Choose either >> or ls")))
