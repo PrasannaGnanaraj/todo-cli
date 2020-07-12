@@ -2,6 +2,6 @@
   (:require [clojure.test :refer :all]
             [todo.core :refer :all]))
 
-(deftest textArrayToTableTest
+(deftest textarray-to-table-test
   (testing "Converts text array to tabular format"
-    (is (= (textArrayToTable '("hello" "hi there")) [{:todos "hello"} {:todos "hi there"}]))))
+    (is (= (textarray-to-table '("hello" "hi there")) [{:todos "hello"} {:todos "hi there"}]))))
