@@ -5,8 +5,8 @@
 (deftest textarray-to-table-test
   (testing "Converts text array to tabular format"
     (is (= (textarray-to-table '("hello" "hi there"))
-           [{:todo "hello" :time "UNKNOWN"} {:todo "hi there" :time "UNKNOWN"}]))))
+           [{:todo "hello" :time "UNKNOWN"} {:todo "hi there" :created_at "UNKNOWN"}]))))
 
 (deftest line-to-row-test
   (testing "Converts line content to a row obj")
-  (is (= (line-to-row "hello \t Today") {:todo "hello" :time "Today"})))
+  (is (= (line-to-row "hello \t Today") {:todo "hello" :created_at "Today"})))

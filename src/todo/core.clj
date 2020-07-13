@@ -17,9 +17,9 @@
   [line-content]
   (let [splitter (fn [string] (clojure.string/split string #"\t"))
         split-line (map #(clojure.string/trim %) (splitter line-content))
-        time (second split-line)]
+        created_at (second split-line)]
     
-    {:todo (first split-line) :time (if (nil? time) "UNKNOWN" time)}))
+    {:todo (first split-line) :created_at (if (nil? created_at) "UNKNOWN" created_at)}))
 
                                         ;TODO refactor below function
 (defn textarray-to-table
