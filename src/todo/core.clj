@@ -27,7 +27,7 @@
   (with-open [file (reader file-location)]
     (let [file-content (slurp file)]
       (print-table
-       (map 
+       (map print-helper
             (split file-content #"\n"))))))
 
 (defn -main
