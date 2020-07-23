@@ -15,23 +15,16 @@
 (defn line-to-row
   "Converts line content to a row obj"
   [line-content]
-  (let [splitter (fn [string] (clojure.string/split string #"\t"))
-        split-line (map #(clojure.string/trim %) (splitter line-content))
-        created_at (second split-line)]
-    
-    {:todo (first split-line) :created_at (if (nil? created_at) "UNKNOWN" created_at)}))
-
-                                        ;TODO refactor below function
-(defn textarray-to-table
-  "Converts text array to object format for pretty printing"
-  [content-array]
-  (reduce #(conj %1 (line-to-row %2)) [] content-array))
+  (let [[todo created_at] (clojure.string/split line-content #"\t")]
+    {:todo todo :created_at (or created_at "UNKNOWN")}))
 
 (defn read-content
   "reads content from todo file"
   [file-location]
   (with-open [file (clojure.java.io/reader file-location)]
-    (print-table (textarray-to-table (line-seq file)))))
+    (print-table
+     (map line-to-row
+          (doall (line-seq file))))))
 
 (defn -main
   "I don't do a whole lot ... yet."
