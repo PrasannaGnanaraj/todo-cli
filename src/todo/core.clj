@@ -1,5 +1,8 @@
 (ns todo.core
-  (:gen-class))
+  (:gen-class)
+  (:require [clojure.string :refer [split]])
+  (:require [clojure.java.io :refer [writer reader]]))
+
 (use 'clojure.pprint)
 
 (def file-location (System/getenv "TODO_LOCATION"))
@@ -9,22 +12,23 @@
 (defn add-content
   "appends content to todo file"
   [file-location text-content]
-  (with-open [file (clojure.java.io/writer file-location :append true)]
-    (.write file (str (first text-content) "\t" (now) "\n"))))
+  (with-open [file (writer file-location :append true)]
+    (.write file (str text-content "\t" (now) "\n"))))
 
-(defn line-to-row
+(defn print-helper
   "Converts line content to a row obj"
   [line-content]
-  (let [[todo created_at] (clojure.string/split line-content #"\t")]
+  (let [[todo created_at] (split line-content #"\t")]
     {:todo todo :created_at (or created_at "UNKNOWN")}))
 
 (defn read-content
   "reads content from todo file"
   [file-location]
-  (with-open [file (clojure.java.io/reader file-location)]
-    (print-table
-     (map line-to-row
-          (doall (line-seq file))))))
+  (with-open [file (reader file-location)]
+    (let [file-content (slurp file)]
+      (print-table
+       (map 
+            (split file-content #"\n"))))))
 
 (defn -main
   "I don't do a whole lot ... yet."
@@ -36,4 +40,4 @@
           (add-content file-location (rest args))
           (read-content file-location))
     "ls" (read-content file-location)
-    (println "Choose either >> or ls")))
+    (println "Choose either a or ls")))
