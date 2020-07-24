@@ -37,7 +37,7 @@
     (throw (AssertionError. "empty $TODO_LOCATION")))
   (case (first args)
     "a" (do
-          (add-content file-location (rest args))
+          (add-content file-location (second args))
           (read-content file-location))
     "ls" (read-content file-location)
     (println "Choose either a or ls")))
