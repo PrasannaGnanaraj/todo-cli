@@ -1,9 +1,8 @@
 (ns todo.core
   (:gen-class)
-  (:require [clojure.string :refer [split]])
-  (:require [clojure.java.io :refer [writer reader]]))
-
-(use 'clojure.pprint)
+  (:require [clojure.string :refer [split]]
+            [clojure.java.io :refer [writer reader]]
+            [clojure.pprint :refer [print-table]]))
 
 (def file-location (System/getenv "TODO_LOCATION"))
 
