@@ -32,7 +32,7 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (if (nil? file-location)
+  (when (nil? file-location)
     (throw (AssertionError. "empty $TODO_LOCATION")))
   (case (first args)
     "a" (do
