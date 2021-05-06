@@ -7,6 +7,7 @@
   :main ^:skip-aot todo.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
+  :plugins [[lein-bin "0.3.5"]]
   :bin {:name "todo"
         :bin-path "~/bin"
         :bootclasspath true})
